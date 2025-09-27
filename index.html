@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR / Barcode Scanner</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>📸 QR / Barcode Scanner</h2>
+
+    <div id="scanner-container">
+      <select id="camera-select"></select>
+      <button id="start-scan">Start Scanning</button>
+    </div>
+
+    <p id="result">Scanned: <span id="scanned-code">None</span></p>
+
+    <div class="buttons">
+      <button id="copy-btn">📋 Copy</button>
+      <button id="send-btn">📤 Send to Bot</button>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <script src="script.js"></script>
+</body>
+</html>
