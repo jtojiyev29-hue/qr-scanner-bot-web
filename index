@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR / Barcode Scanner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>📷 QR / Barcode Scanner</h2>
+
+    <select id="cameraSelect"></select>
+    <button id="startButton">Start Scanning</button>
+
+    <video id="video" autoplay></video>
+    <div id="result">None</div>
+
+    <div class="buttons">
+      <button id="copyButton">📋 Copy</button>
+      <button id="sendButton">📤 Send to Bot</button>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/@zxing/library@latest"></script>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
