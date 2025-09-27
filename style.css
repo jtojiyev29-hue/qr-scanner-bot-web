@@ -1,0 +1,55 @@
+```css
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #f9f9f9;
+}
+
+.container {
+  text-align: center;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+#preview {
+  width: 300px;
+  height: 300px;
+  margin: 15px auto;
+  border: 2px dashed #ccc;
+}
+
+#result {
+  font-size: 18px;
+  margin: 10px 0;
+  color: green;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#copyBtn {
+  background: #007bff;
+  color: white;
+}
+
+#sendBtn {
+  background: #28a745;
+  color: white;
+}
