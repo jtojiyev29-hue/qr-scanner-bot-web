@@ -1,0 +1,24 @@
+.container {
+  text-align: center;
+  margin-top: 50px;
+  font-family: Arial, sans-serif;
+}
+#reader {
+  width: 300px;
+  margin: 20px auto;
+}
+button {
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#copyBtn {
+  background-color: #007bff;
+  color: white;
+}
+#sendBtn {
+  background-color: #28a745;
+  color: white;
+}
