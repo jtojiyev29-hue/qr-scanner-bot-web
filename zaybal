@@ -1,0 +1,181 @@
+**index.html**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QR / Barcode Scanner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>📷 QR / Barcode Scanner</h2>
+    <!-- Faqat DIV bo‘lishi kerak, video emas -->
+    <div id="preview"></div>
+    <p id="result">None</p>
+    <div class="buttons">
+      <button id="copyBtn">📋 Copy</button>
+      <button id="sendBtn">📤 Send to Bot</button>
+    </div>
+  </div>
+
+  <!-- QR code kutubxonasi -->
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+**style.css**
+
+```css
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f5f5f5;
+}
+
+.container {
+  text-align: center;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+#preview {
+  width: 100%;
+  max-width: 400px;
+  border: 2px solid #333;
+  border-radius: 10px;
+}
+
+#result {
+  margin-top: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  color: green;
+}
+
+.buttons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#copyBtn {
+  background: #007bff;
+  color: white;
+}
+
+#sendBtn {
+  background: #28a745;
+  color: white;
+}
+```
+
+**script.js**
+
+```js
+const resultElement = document.getElementById("result");
+let lastScanned = null;
+
+function startScanner() {
+  const html5QrCode = new Html5Qrcode("preview");
+  html5QrCode.start(
+    { facingMode: "environment" }, // Telefon uchun orqa kamera
+    { fps: 10, qrbox: 250 },
+    (decodedText) => {
+      lastScanned = decodedText;
+      resultElement.textContent = decodedText;
+    },
+    (errorMessage) => {
+      // console.log("Skaner xatosi:", errorMessage);
+    }
+  ).catch(err => {
+    console.error("Kamerani ochib bo‘lmadi:", err);
+    alert("Kamerani ochib bo‘lmadi: " + err);
+  });
+}
+
+startScanner();
+
+// 📋 Copy tugmasi
+document.getElementById("copyBtn").addEventListener("click", () => {
+  if (lastScanned) {
+    navigator.clipboard.writeText(lastScanned);
+    alert("Barcode copied: " + lastScanned);
+  }
+});
+
+// 📤 Send to Bot tugmasi
+document.getElementById("sendBtn").addEventListener("click", () => {
+  if (lastScanned) {
+    const botUsername = "@aynimo_check_bot"; // 🔹 Bot username yozing
+    const message = encodeURIComponent(lastScanned);
+    window.open(`https://t.me/${botUsername}?start=${message}`, "_blank");
+  }
+});
+```
+
+**README.md**
+
+```markdown
+# 📷 QR / Barcode Scanner
+
+Oddiy va qulay QR / Barcode skaner. [html5-qrcode](https://github.com/mebjas/html5-qrcode) kutubxonasi asosida yozilgan.  
+
+🚀 **GitHub Pages orqali HTTPS** bilan ishlaydi, shuning uchun brauzer kamerani ochishga ruxsat beradi.  
+
+---
+
+## ⚡ Xususiyatlar
+- QR va Barcode’larni real vaqtda skanerlash
+- Oxirgi skaner natijasini ko‘rsatish
+- 📋 Natijani **Copy** qilish
+- 📤 Natijani to‘g‘ridan-to‘g‘ri Telegram botga yuborish
+
+---
+
+## 📂 Loyihaning tuzilishi
+```
+
+index.html   → Asosiy HTML fayl
+style.css    → Dizayn (UI) uchun CSS
+script.js    → Kamera va QR kod logikasi
+README.md    → Loyihani tushuntiruvchi hujjat
+
+```
+
+---
+
+## 🛠️ GitHub Pages’da deploy
+1. Fayllarni GitHub reposiga yuklang  
+2. Repo ichida **Settings → Pages** ga kiring  
+3. `Branch: main` va `/ (root)` ni tanlang  
+4. **Save** bosing  
+
+🔗 Saytingiz manzili:
+```
+
+https://<username>.github.io/<repo>/
+
+```
+
+---
+MIT License © 2025
+```
