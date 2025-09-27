@@ -1,0 +1,55 @@
+const video = document.getElementById('video');
+const resultElement = document.getElementById('result');
+const cameraSelect = document.getElementById('cameraSelect');
+const startButton = document.getElementById('startButton');
+const copyButton = document.getElementById('copyButton');
+const sendButton = document.getElementById('sendButton');
+
+let selectedDeviceId;
+let codeReader = new ZXing.BrowserMultiFormatReader();
+
+// Kameralarni olish
+navigator.mediaDevices.enumerateDevices().then(devices => {
+  const videoDevices = devices.filter(device => device.kind === 'videoinput');
+  videoDevices.forEach((device, index) => {
+    const option = document.createElement('option');
+    option.value = device.deviceId;
+    option.text = device.label || `Camera ${index + 1}`;
+    cameraSelect.appendChild(option);
+  });
+  if (videoDevices.length > 0) {
+    selectedDeviceId = videoDevices[0].deviceId;
+  }
+});
+
+// Kamera tanlanganda
+cameraSelect.addEventListener('change', () => {
+  selectedDeviceId = cameraSelect.value;
+});
+
+// Start bosilganda
+startButton.addEventListener('click', () => {
+  codeReader.decodeFromVideoDevice(selectedDeviceId, video, (result, err) => {
+    if (result) {
+      resultElement.textContent = result.text;
+    }
+  });
+});
+
+// Copy tugmasi
+copyButton.addEventListener('click', () => {
+  const barcode = resultElement.textContent;
+  if (barcode && barcode !== "None") {
+    navigator.clipboard.writeText(barcode);
+    alert("Barcode copied!");
+  }
+});
+
+// Send to Bot tugmasi
+sendButton.addEventListener('click', () => {
+  const barcode = resultElement.textContent;
+  if (barcode && barcode !== "None") {
+    Telegram.WebApp.sendData(barcode); // ✅ Foydalanuvchi nomidan botga boradi
+    alert("Barcode sent to bot!");
+  }
+});
